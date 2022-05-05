@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Works log</h1>
+{% for item in jobs%}
+<h2>Action # {{item.id}}</h2>
+<div class="col-md6 border rounded">
+    <table>
+  <colgroup>
+    <col span="2" style="background:Khaki"><!-- С помощью этой конструкции задаем цвет фона для первых двух столбцов таблицы-->
+    <col style="background-color:LightCyan"><!-- Задаем цвет фона для следующего (одного) столбца таблицы-->
+  </colgroup>
+  <tr>
+    <th>Title of activity</th>
+    <th>Team leader</th>
+    <th>Duration</th>
+    <th>List of collaborators</th>
+      <th>Is finished</th>
+  </tr>
+  <tr>
+    <th>{{item.job}}</th>
+    <th>{{item.team_leader1}}</th>
+    <th>{{item.work_size}}</th>
+    <th>{{item.collaborators}}</th>
+      <th>{{item.is_finished1}}</th>
+  </tr>
+      {% if current_user.is_authenticated and (current_user.id == item.creater or current_user.id == 1) %}
+    <div>
+        <a href="/jobs/{{ item.id }}" class="btn btn-warning">
+            Изменить
+        </a>
+        <a href="/jobs_delete/{{ item.id }}" class="btn btn-danger">
+            Удалить
+        </a>
+    </div>
+{% endif %}
+</table>
+</div>
+{% endfor %}
+{% endblock %}ml>
